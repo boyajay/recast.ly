@@ -1,15 +1,3 @@
-// var App = () => (
-//   <div>
-//     <Nav />
-//     <div className="col-md-7">
-//       <VideoPlayer video={exampleVideoData[0]}/>
-//     </div>
-//     <div className="col-md-5">
-//       <VideoList/>
-//     </div>
-//   </div>
-// );
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -22,18 +10,24 @@ class App extends React.Component {
     this.setState({currentVideo: newVideo});
   }
   
+  getSearch (searchText){
+    var text = searchText[0].value;
+    this.props.options.query = text;
+    searchYouTube(this.props.options, (data) => {
+      this.setState({videoData: data.items});
+    });
+  }
 
   componentDidMount() {
-    var ourCallback = (data) => {
+    searchYouTube(this.props.options, (data) => {
       this.setState({currentVideo: data.items[0],
       videoData: data.items});
-    }
-    searchYouTube(undefined, ourCallback);
+    });
   }
   render () {
     return (
       <div>
-        <Nav />
+        <Nav query={this.getSearch.bind(this)}/>
         <div className="col-md-7">
           <VideoPlayer video={this.state.currentVideo} parentState={this.state}/>
         </div>
@@ -44,4 +38,4 @@ class App extends React.Component {
     )
   }
 }
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App options={{key: YOUTUBE_API_KEY, query: 'Super Bowl', max: 10}} />, document.getElementById('app'));
