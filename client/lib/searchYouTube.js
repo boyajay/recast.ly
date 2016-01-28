@@ -24,5 +24,5 @@ $.ajax({
 };
 
 
-var searchYouTube = _.throttle(search,400);
+var searchYouTube = _.debounce(search,400);
 window.searchYouTube = searchYouTube;
