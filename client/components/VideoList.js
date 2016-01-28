@@ -4,10 +4,11 @@ class VideoList extends React.Component {
     super(props);
   }
   render () {
+    //console.log('VideoList', this.props);
     return (
       <div className="video-list media">
         {exampleVideoData.map(item =>
-            <VideoListEntry video={item} />
+            <VideoListEntry video={item} titleClick={this.props.titleClick}/>
         )}
       </div>
     )

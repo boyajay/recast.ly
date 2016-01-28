@@ -14,7 +14,9 @@ class VideoPlayer extends React.Component {
   constructor(props) {
     super(props);
   }
+
   render () {
+    //console.log('VideoPlayer', this.props)
     return (
       <div className="video-player">
         <div className="embed-responsive embed-responsive-16by9">
