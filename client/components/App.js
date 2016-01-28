@@ -14,13 +14,21 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentVideo: exampleVideoData[0],
-      videoData: exampleVideoData
+      currentVideo: {id:{ videoId: "Please Wait"}, snippet: {title: "Please Wait", description: "Please Wait"}},
+      videoData: []
     }
   }
   onTitleClick(newVideo) {
-    //console.log('onTitleClick',this);
     this.setState({currentVideo: newVideo});
+  }
+  
+
+  componentDidMount() {
+    var ourCallback = (data) => {
+      this.setState({currentVideo: data.items[0],
+      videoData: data.items});
+    }
+    searchYouTube(undefined, ourCallback);
   }
   render () {
     return (
@@ -30,7 +38,7 @@ class App extends React.Component {
           <VideoPlayer video={this.state.currentVideo} parentState={this.state}/>
         </div>
         <div className="col-md-5">
-          <VideoList parentState={this.state} titleClick={this.onTitleClick.bind(this)}/>
+          <VideoList videoData={this.state.videoData} titleClick={this.onTitleClick.bind(this)}/>
         </div>
       </div>
     )

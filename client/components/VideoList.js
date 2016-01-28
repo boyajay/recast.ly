@@ -7,7 +7,7 @@ class VideoList extends React.Component {
     //console.log('VideoList', this.props);
     return (
       <div className="video-list media">
-        {exampleVideoData.map(item =>
+        {this.props.videoData.map(item =>
             <VideoListEntry video={item} titleClick={this.props.titleClick}/>
         )}
       </div>
